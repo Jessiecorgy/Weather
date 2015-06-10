@@ -9,6 +9,27 @@
     font-style: normal;
 
 }
+h1#current_temp.icon::before {
+	display: block;
+}
+
+
+p#location {
+	font-size: 2em;
+	margin: 0px;
+	text-transform: uppercase;
+}
+
+h1#current_temp.icon {
+	font-size: 6em;
+	margin: 0px;
+}
+
+
+p#current_summary {
+	font-size: 1em;
+	margin: 0px;
+}
 
 .icon:before {
 	font-family: 'MeteoconsRegular';
@@ -24,3 +45,46 @@
 .content {
 	text-align: center; 
 	}
+
+	h1 {
+		color: #2F2F2F;
+	}
+div.content {
+	background: #f7f7f6;
+	padding: 100px;
+	margin: 80px;
+	border-radius: 25px;
+}
+
+div.ui-header {
+	background: #2F2F2F;
+}
+
+
+div.ui-page {
+	background: #2F2F2F;
+}
+
+.ui-header {
+	border-width: 0px !importantS;
+	border-style: none !important;
+}
+
+h1#current_temp.icon, p#current_summary, p#location {
+	text-shadow: none !important;
+	color: #535352;
+}
+
+}
+
+
+
+
+ {
+	background: url(https://farm4.staticflickr.com/3280/2984808217_a59626feaf_o.jpg) no-repeat bottom right;
+}
+
+h1.ui-title {
+	color: #fff;
+	  text-shadow: 0 0px 0 #f3f3f3; !important;
+}

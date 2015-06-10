@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>weather</title>
+	<title></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -49,7 +49,7 @@
 					dataType: 'jsonp',
 					success: function(json) {
 						console.log(json);
-						$("#current_temp").html(Math.round(json.currently.temperature)+"&#176;F");
+						$("#current_temp").html(Math.round(json.currently.temperature)+"&#176;");
 						$("#current_summary").html(json.currently.summary);
 						$("#current_temp").attr("data-icon",icons[json.currently.icon]);
 
@@ -115,14 +115,15 @@
 		</div><!-- /panel -->
 
 	<div data-role="header" data-position="fixed" data-theme="C">
-		<h1>Weather</h1>
+		<h1></h1>
 		<a href="#left-panel" data-icon="bars" data-role="button" data-inconpos="notext" data-iconshadow="false">Menu</a>
 	</div>
 
 	<div role="content" class="content">
-		<h1 id="current_temp" class="icon" data-icon="B">65&#176;F</h1>
-		<p id="current_summary">Partly CLoudy</p>
 		<p id="location">Current Location</p>
+		<h1 id="current_temp" class="icon" data-icon="B">65&#176;</h1>
+		<p id="current_summary">Partly CLoudy</p>
+		
 
 
 	</div>
