@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+	<title>weather</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="apple-touch-icon" href="images/icon.png"/>
+
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+
+	<script type="text/javascript">
+		var icons = { "clear-day" : "B", 
+					"clear-night" : "C",
+					"rain" : "R",
+					"snow" : "G",
+					"sleet" : "X",
+					"wind" : "S",
+					"fog" : "N", 
+					"cloudy" : "Y",
+					"partly-cloudy-day" : "H",
+					"partly-cloudy-night" : "I"
+				};
+ 
+
+		var cities = {
+
+
+				"spokane" : {coords: {latitude: 47.678491, longitude: -117.432448}},
+				"seattle": {coords: {latitude: 47.615420, longitude: -122.325337}},
+				"los angeles" : {coords: {latitude: 34.101509, longitude: -118.32691}},
+				"austin" : {coords: {latitude: 30.265108, longitude: -97.739082}},
+				"current location" : ""
+		};
+
+					   
+		function loadWeather(cityCoords){
+			var latlng  = cityCoords.coords.latitude + "," + cityCoords.coords.longitude;
+			var forecastURL = "https://api.forecast.io/forecast/d75ca564b392bdabad2742a280fb9fa8/"+latlng;
+
+			$.ajax({
+					url: forecastURL,
+					jsonCallback: 'jsonCallback',
+					contentType: "application/json",
+					dataType: 'jsonp',
+					success: function(json) {
+						console.log(json);
+						$("#current_temp").html(Math.round(json.currently.temperature)+"&#176;F");
+						$("#current_summary").html(json.currently.summary);
+						$("#current_temp").attr("data-icon",icons[json.currently.icon]);
+
+					},
+				
+					error: function(e) {
+						console.log(e.message);
+					}
+			});
+
+		}
+
+		function loadCity(city) {
+			$("#location").html(city);
+
+				if (city.toLowerCase() == "current location") {
+					if ( navigator.geolocation )
+						navigator.geolocation.getCurrentPosition(loadWeather, loadDefaultCity);
+					else {
+						loadDefaultCity();
+					}
+				} else {
+
+			loadWeather(cities[city.toLowerCase()]);
+		}
+
+
+	}
+
+	function loadDefaultCity () {
+		loadCity("Los Angeles");
+	}
+		
+		$(document).ready(function(){
+			loadCity("Los Angeles");
+
+			$("a.city").bind("click", function(){
+				loadCity($(this).html());
+			});
+		});
+
+
+	</script>
+		
+
+</head>
+<body>
+
+
+<div data-role="page">
+
+		<div data-role="panel" id="left-panel" data-theme="C">
+			<ul data-theme="d" data-role="listview">
+				<li data-icon="delete"><a href="#" data-rel="close">close</a></li>
+				<li data-role="list-divider">Select a City</li>
+					<li><a href="#" class="city" data-rel="close">Spokane</a></li>
+					<li><a href="#" class="city" data-rel="close">Seattle</a></li>
+					<li><a href="#" class="city" data-rel="close">Los Angeles</a></li>
+					<li><a href="#" class="city" data-rel="close">Austin</a></li>
+			</ul>
+
+
+		</div><!-- /panel -->
+
+	<div data-role="header" data-position="fixed" data-theme="C">
+		<h1>Weather</h1>
+		<a href="#left-panel" data-icon="bars" data-role="button" data-inconpos="notext" data-iconshadow="false">Menu</a>
+	</div>
+
+	<div role="content" class="content">
+		<h1 id="current_temp" class="icon" data-icon="B">65&#176;F</h1>
+		<p id="current_summary">Partly CLoudy</p>
+		<p id="location">Current Location</p>
+
+
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
